@@ -15,23 +15,25 @@ namespace LMFReports.Models.SheetResponses
     internal class Membership7447Response : IModelResponse
     {
 
-        internal Fy Fy1 { get; init; }
-        internal Fy Fy2 { get; init; }
-        internal Fy Fy3 { get; init; }
+        internal Fy Fy1 { get; set; }
+        internal Fy Fy2 { get; set; }
+        internal Fy Fy3 { get; set; }
 
         public string SheetName => "3-Year Membership Report";
-
       
     }
 
     internal class Fy
     {
-       internal List<Payment> Payments { get; init; }
+       internal List<Membership7447Request> Payments { get; init; }
+       internal string Year { get; init; }
+       internal string Sum { get; init; }
+       internal string DisplayName { get; init; }
     }
 
     internal class Payment
     {
-        internal List<string> DisplayName { get; init; }
+        internal string DisplayName { get; init; }
         internal string PaymentDate { get; init; }
         internal string Amount { get; init; }
 
