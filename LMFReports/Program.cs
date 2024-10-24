@@ -13,29 +13,52 @@ namespace LMFReports
 {
     class Program
     {
-
+            
         static void Main(string[] args)
         {
-            var services = new ServiceCollection();
-            services.AddTransient<Membership7447Service>();
-            services.AddSingleton<IWorkbookBuilder,WorkbookBuilder>();
-            services.AddSingleton<Func<ReportServiceType, IReportService>>(serviceProvider => key =>
+            Console.WriteLine("Hit enter to start");
+
+            ConsoleKeyInfo keyPress = Console.ReadKey(intercept: true);
+            while (keyPress.Key != ConsoleKey.Enter)
             {
-                switch (key)
+                Console.Write(keyPress.KeyChar.ToString().ToUpper());
+
+                keyPress = Console.ReadKey(intercept: true);
+            }
+
+            try
+            {
+                var services = new ServiceCollection();
+                services.AddTransient<ThreeYearMembershipReportService>();
+                services.AddSingleton<IWorkbookBuilder, WorkbookBuilder>();
+                services.AddSingleton<Func<ReportServiceType, IReportService>>(serviceProvider => key =>
                 {
-                    case ReportServiceType.Membership7447Service:
-                        return serviceProvider.GetService<Membership7447Service>();
-                    default:
-                        throw new KeyNotFoundException();
+                    switch (key)
+                    {
+                        case ReportServiceType.ThreeYearMembershipReportService:
+                            return serviceProvider.GetService<ThreeYearMembershipReportService>();
+                        default:
+                            throw new KeyNotFoundException();
+                    }
+                });
+
+                IServiceProvider serviceProvider = services.BuildServiceProvider();
+                var workbookBuilder = serviceProvider.GetService<IWorkbookBuilder>();
+                workbookBuilder.BuildWorkbooks();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.ToString());
+                while (keyPress.Key != ConsoleKey.Enter)
+                {
+                    Console.Write(keyPress.KeyChar.ToString().ToUpper());
+
+                    keyPress = Console.ReadKey(intercept: true);
                 }
-            });
-
-            IServiceProvider serviceProvider = services.BuildServiceProvider();
-            var workbookBuilder = serviceProvider.GetService<IWorkbookBuilder>();
-            workbookBuilder.BuildWorkbooks();
+                
+            }
+            Console.WriteLine("Done");
         }
-
-       
     }
 }
 

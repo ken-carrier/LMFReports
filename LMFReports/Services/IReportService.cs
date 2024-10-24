@@ -9,13 +9,12 @@ namespace LMFReports.Services
 {
     public enum ReportServiceType
     {
-        Membership7447Service = 0,
+        ThreeYearMembershipReportService = 0,
         MembershipServiceNotValid = 1
     }
     internal interface IReportService
     {
         void AddWorkbook(string path);
-        //void WriteToExcel(string path, List<IModelRequest> iModels);
-        //List<IModelRequest> ReadFromExcel(string path);
+  
     }
 }

@@ -8,6 +8,6 @@ namespace LMFReports.Models
 {
     interface IModelResponse
     {
-        string SheetName { get; }
+   
     }
 }

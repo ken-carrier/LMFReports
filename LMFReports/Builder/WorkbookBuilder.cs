@@ -30,18 +30,19 @@ namespace LMFReports.Builder
         public void BuildWorkbooks()
         {
 
-            string path = "Copy of 2021-0522 Membership Report(7447).xlsx";
-
+            string path = "ThreeYearMembershipReport.xlsx";
+            
             IReportService reportService = _modelReportServiceDelegate(GetReportServiceType(path));
             reportService.AddWorkbook(path);
-            
+            Console.WriteLine("Report has been completed");
+            Console.ReadLine();
         }
 
         ReportServiceType GetReportServiceType(string path)
         {
-            return (path.Contains("Membership Report(7447)")) switch
+            return (path.Contains("ThreeYearMembershipReport")) switch
             {
-                (true) => ReportServiceType.Membership7447Service,
+                (true) => ReportServiceType.ThreeYearMembershipReportService,
                 _ => ReportServiceType.MembershipServiceNotValid
             };
         }
